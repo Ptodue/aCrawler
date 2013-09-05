@@ -1,6 +1,6 @@
-*.class
+# IDE metadata. Don't track them!
+aptana/
+nbproject/
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Configuration. Keep private, don't track!
+config/
