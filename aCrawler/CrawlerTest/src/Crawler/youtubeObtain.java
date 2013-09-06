@@ -10,7 +10,7 @@ import java.util.Scanner;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-class youtubeObtain extends Crawler {
+class YoutubeObtain extends Crawler {
 
 	Data data;
 	TubeExtract extractor;
@@ -36,9 +36,9 @@ class youtubeObtain extends Crawler {
 		try {
 			String title = URLDecoder.decode(doc.title().replaceAll("- YouTube", ""), "utf-8");
 			data.setFileName(title);
-			data.printf(data.FileName());
+			Logger.println(data.FileName());
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			Logger.println(e);
 		}
 
 		if (this.extractor.staus.contains("fail")) {
@@ -48,14 +48,14 @@ class youtubeObtain extends Crawler {
 			Map<Integer, String[]> userMap = new HashMap<Integer, String[]>();
 			for (int i : this.extractor.downloadMap.keySet()) {
 
-				data.printf(String.format("%d.%s %s", num, data.FileName(), TubeInfo.itagMap.get(i)));
+				Logger.println(String.format("%d.%s %s", num, data.FileName(), TubeInfo.itagMap.get(i)));
 
 				String sFileExtension = getExtension(this.extractor.downloadMap.get(i)[1]);
 				userMap.put(num, new String[] { this.extractor.downloadMap.get(i)[0], sFileExtension });
 				num++;
 
 			}
-			data.printf("please enter the number of list, which one do you want to download");
+			Logger.println("請依上列，輸入所要下載的項目");
 			Scanner scanner = new Scanner(System.in);
 			int i = scanner.nextInt();
 
@@ -65,10 +65,10 @@ class youtubeObtain extends Crawler {
 			data.setYTBDownLink(downloadLink);
 			data.setFileExtension(fileExt);
 
-			data.printf("\r\n" + downloadLink + "\r\n." + fileExt);
+//			Logger.println("\r\n" + downloadLink + "\r\n." + fileExt);
 
 			try {
-				data.printf(data.FileName() + "." + data.FileExtension() + "開始下載");
+				Logger.println(data.FileName() + "." + data.FileExtension() + "開始下載");
 				Download.YTBFile(data);
 			} catch (IOException e) {
 				e.printStackTrace();

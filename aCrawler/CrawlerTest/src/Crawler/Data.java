@@ -101,14 +101,14 @@ public class Data {
 		return "Youtube [Url=" + sUrl + ", DownLoadURL=" + s + ", FileName=" + sFileName + "]";
 	}
 
-	public void printf(String sentence) {
-		if (bYTBLink && confirmYTB(sentence))
-			System.out.println(toYTBString(sentence));
-		else if (sentence.contains("getit"))
-			System.out.println(toFileString());
-		else
-			System.out.println(sentence);
-	}
+//	public void printf(String sentence) {
+//		if (bYTBLink && confirmYTB(sentence))
+//			System.out.println(toYTBString(sentence));
+//		else if (sentence.contains("getit"))
+//			System.out.println(toFileString());
+//		else
+//			System.out.println(sentence);
+//	}
 
 	private boolean confirmYTB(String s) {
 		if (s.contains("youtube.com"))

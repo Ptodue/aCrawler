@@ -26,7 +26,8 @@ public class TubeExtract extends TubeInfo {
 
 		this.info = youtubeInfo;
 
-		System.out.println(String.format("targetURL:\n%s\nyoutubeInfo:\n%s", sVidUrl, youtubeInfo));
+		Logger.println(String.format("targetURL:%s", sVidUrl));
+		Logger.println(String.format("youtubeInfo:%s", youtubeInfo));
 		return youtubeInfo;
 	}
 
@@ -36,8 +37,8 @@ public class TubeExtract extends TubeInfo {
 
 	}
 
-	/* 參考 Kej's FLV Retriever
-	 * parse.youtube.fmt_url_map.js 演算法
+	/*
+	 * 參考 Kej's FLV Retriever parse.youtube.fmt_url_map.js 演算法
 	 */
 	String getYouTubeVideoLink(String videoInfo) {
 
@@ -56,11 +57,10 @@ public class TubeExtract extends TubeInfo {
 					ArrayList<String> fmt_url = new ArrayList<String>();
 					ArrayList<String> fmt_sig = new ArrayList<String>();
 					ArrayList<String> fmt_type = new ArrayList<String>();
-					
+
 					for (int j = 0; j < temp1.length; j++) {
 						String[] temp2 = temp1[j].split("&");
-						
-						
+
 						for (int jj = 0; jj < temp2.length; jj++) {
 							int temp_itag = -1;
 							if (getSubstr(temp2[jj], 0, 5).contains("itag=")) {
@@ -77,7 +77,7 @@ public class TubeExtract extends TubeInfo {
 								fmt_sig.add(SigHandlerAlternative(temp2[jj].substring(2)));
 
 							} else if (getSubstr(temp2[jj], 0, 5).contains("type=")) {
-								fmt_type.add( "(" + URLDecoder.decode(getSubstr(temp2[jj], 5), "UTF-8") + ")");
+								fmt_type.add("(" + URLDecoder.decode(getSubstr(temp2[jj], 5), "UTF-8") + ")");
 							}
 						}
 					}
@@ -97,8 +97,8 @@ public class TubeExtract extends TubeInfo {
 							}
 							tempLink = URLDecoder.decode(tempfmt_url[index].toString(), "UTF-8") + String.format("&signature=%s", tempfmt_sig[index].toString());
 
-							this.downloadMap.put(k, new String[]{tempLink,(String) tempfmt_type[index]});
-							webmlinks += tempLink + "\r\n" +tempfmt_type[index]+ "---"+itagMap.get(k);
+							this.downloadMap.put(k, new String[] { tempLink, (String) tempfmt_type[index] });
+							webmlinks += tempLink + "\r\n" + tempfmt_type[index] + "---" + itagMap.get(k);
 
 						} else {
 							if (dllinks.length() > 0) {
@@ -107,8 +107,8 @@ public class TubeExtract extends TubeInfo {
 							tempLink = URLDecoder.decode(tempfmt_url[index].toString(), "UTF-8") + String.format("&signature=%s", tempfmt_sig[index].toString());
 							// downloadMap1.put(k, tempLink);
 
-							this.downloadMap.put(k, new String[]{tempLink,(String) tempfmt_type[index]});
-							dllinks += tempLink + "\r\n" +tempfmt_type[index]+ "---"+ itagMap.get(k);
+							this.downloadMap.put(k, new String[] { tempLink, (String) tempfmt_type[index] });
+							dllinks += tempLink + "\r\n" + tempfmt_type[index] + "---" + itagMap.get(k);
 						}
 						index++;
 					}
@@ -119,15 +119,15 @@ public class TubeExtract extends TubeInfo {
 						dllinks += webmlinks;
 					}
 
-					System.out.println(URLDecoder.decode(dllinks, "UTF-8"));
+					Logger.println(URLDecoder.decode(dllinks, "UTF-8"));
 
 					succ = true;
 					this.staus = "success";
 					return "Success to get youtubeLink";
 
-				} else
-					System.out.print("");
-
+				}
+				// else
+				// Logger.println("資料處理中請稍候....");
 			}
 
 			if (!succ) {
@@ -147,7 +147,7 @@ public class TubeExtract extends TubeInfo {
 				result = String.format("status:%s \r\nreason:%s", rdata_status, rdata_reason.length() <= 0 ? "the file is not found" : rdata_reason);
 
 				this.staus = rdata_status;
-				System.out.println(result);
+				Logger.println(result);
 				return result;
 			}
 
@@ -180,9 +180,7 @@ public class TubeExtract extends TubeInfo {
 
 		return s;
 	}
-	
 
-	
 	/**
 	 * <p>
 	 * Example: Different between with String.substring and getSubstr<br>

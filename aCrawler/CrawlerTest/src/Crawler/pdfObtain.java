@@ -16,7 +16,7 @@ import org.jsoup.select.Elements;
  * @author PTODUE
  * 
  */
-public class pdfObtain extends Crawler {
+public class PdfObtain extends Crawler {
 
 	Data data;
 	String root = "";
@@ -40,11 +40,11 @@ public class pdfObtain extends Crawler {
 
 		int i = 0;
 		while (i < 1 || i > 3) {
-			data.printf("which one do you want to download\r\n" + "1.銀行 2.中華電信 3.郵局  4.自訂");
+			Logger.println("請輸入要下載的項目\r\n" + "1.銀行 2.中華電信 3.郵局  4.自訂");
 			Scanner scanner = new Scanner(System.in);
 			i = scanner.nextInt();
 			if (i > 3)
-				data.printf("尚不提供此服務");
+				Logger.println(Logger.LEVEL_WARNING,"尚不提供此服務");
 		}
 		root = downLink.get(i);
 
@@ -101,27 +101,25 @@ public class pdfObtain extends Crawler {
 				if (linkHref.contains(data.keyword())) {
 
 					if (linkHref.contains(data.FileExtension())) {
-						System.out.println("i got " + data.FileExtension().substring(1) + " " + linkHref);
+						Logger.println("我找到  " + data.FileExtension().substring(1) + " " + linkHref);
 						visitedPathQueue.enQueue(linkHref);
 						pdfQueue.enQueue(linkHref);
 
 					} else if (!visitedPathQueue.contians(linkHref)) {
-						System.out.println("link is:" + linkHref);
+						Logger.println("連結為:" + linkHref);
 						pathQueue.enQueue(linkHref);
 						visitedPathQueue.enQueue(linkHref);
 					}
 				}
 			}
-
-			data.printf("");
 		}
-		data.printf("search over");
+		Logger.println("搜尋完畢");
 
 		try {
 			responseData.getQueueFiles(pdfQueue);
 		} catch (IOException e) {
-
-			data.printf("IO讀取錯誤");
+			Logger.println(e);
+			Logger.println("IO讀取錯誤");
 		}
 	}
 

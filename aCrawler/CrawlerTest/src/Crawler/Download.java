@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import Crawler.Logger;
+
 public class Download {
 
 	Download() {
@@ -34,7 +36,8 @@ public class Download {
 		if (filter) {
 			File desFile = new File(outputFile);
 			if (!desFile.exists()) { // 判斷檔案路徑下的上層目錄存不存在
-				d.printf("指定存檔路徑不存在\r\n建立目錄中...");
+				Logger.println(Logger.LEVEL_WARNING, "指定存檔路徑位址不存在");
+				Logger.println("建立目錄中...");
 				desFile.mkdirs(); // 不存在則先建立上層目錄
 			}
 			if (desFile.exists()) {
@@ -45,8 +48,8 @@ public class Download {
 
 					if (urlConnection.getResponseCode() == 200) {
 						int fileSize = urlConnection.getContentLength();
-						System.out.println("The size is:" + fileSize+" bytes.");
-						d.printf(outputFile + "開始下載");
+						Logger.println("檔案容量" + fileSize+" bytes.");
+						Logger.println(outputFile + "開始下載");
 
 						byte[] buffer = new byte[10240]; // InputStream
 
@@ -64,7 +67,7 @@ public class Download {
 							percentage = (int) ((total * 100) / fileSize);
 							if (oldpercentage < percentage) {
 								if (percentage % 10 == 0)
-									System.out.println("" + (int) ((total * 100) / fileSize) + "%");
+									Logger.println("" + (int) ((total * 100) / fileSize) + "%");
 								System.out.print(".");
 								oldpercentage = percentage;
 							}
@@ -74,10 +77,10 @@ public class Download {
 						bufferedInputStream.close(); // 關閉資料流
 						bufferedOutputStream.close();
 
-						d.printf(outputFile + "下載完成");
+						Logger.println(outputFile + "下載完成");
 					}
 				} else
-					d.printf(outputFile + "檔案已存在");
+					Logger.println(outputFile + "檔案已存在");
 			}
 
 		}

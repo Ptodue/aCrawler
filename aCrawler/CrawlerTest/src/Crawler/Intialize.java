@@ -42,16 +42,16 @@ public class Intialize {
 			e.printStackTrace();
 			try {
 				buildDefaultSetting();
-				System.out.println("重新建立config.properties");
+				Logger.println("重新建立config.properties");
 				
 			} catch (IOException e1) {
+				Logger.println(e1);
 				System.err.println("IO寫入錯誤");
-				e1.printStackTrace();
 			}
 
 		} catch (IOException e) {
+			Logger.println(e);
 			System.err.println("IO讀取錯誤");
-			e.printStackTrace();
 		}
 
 	}

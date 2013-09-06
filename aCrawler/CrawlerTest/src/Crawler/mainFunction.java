@@ -9,7 +9,7 @@ import java.util.Properties;
  * @author PTODUE
  * 
  */
-public class mainFunction {
+public class MainFunction {
 
 	// public void SaveProcess(String path, Intialize init) throws IOException,
 	// Exception {
@@ -87,11 +87,11 @@ public class mainFunction {
 		boolean wrongWeb=false;
 		
 		if(uri.getHost().contains("www.youtube.com") ||uri.getHost().contains("youtu.be") ){
-			aa = new youtubeObtain();
+			aa = new YoutubeObtain();
 		} else if(uri.getHost().contains("exam.getit.com.tw")){
-			aa = new pdfObtain();
+			aa = new PdfObtain();
 		} else{
-			System.out.printf("您所輸入的網址，目前尚未支援");
+			Logger.println("您所輸入的網址，目前尚未支援");
 			wrongWeb = true;
 		}
 		
@@ -103,7 +103,7 @@ public class mainFunction {
 	}
 
 	public static void pause() throws IOException {
-		System.out.println("Press any key to continue...");
+		Logger.println("Press any key to continue...");
 		System.in.read();
 	}
 

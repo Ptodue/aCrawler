@@ -84,7 +84,7 @@ public class WebGet extends DefaultHttpClient {
 			HttpURLConnection urlConnection = (HttpURLConnection) targetUrl.openConnection();
 
 			if (urlConnection.getResponseCode() == 200) {
-				System.out.println("The size is:" + urlConnection.getContentLength());
+				Logger.println("The size is:" + urlConnection.getContentLength() +" bytes");
 
 				byte[] buffer = new byte[1024]; // InputStream
 
@@ -99,8 +99,8 @@ public class WebGet extends DefaultHttpClient {
 
 				bufferedInputStream.close(); // 關閉資料流
 
-				System.out.println(strFileContents.toString());
-				System.out.println(responseString.toString() + "下載完成");
+				Logger.println(strFileContents.toString());
+				Logger.println(responseString.toString() + "下載完成");
 
 			}
 
@@ -170,7 +170,7 @@ public class WebGet extends DefaultHttpClient {
 						HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
 						if (urlConnection.getResponseCode() == 200) {
-							System.out.println("The size is:" + urlConnection.getContentLength()+" bytes");
+							Logger.println("The size is:" + urlConnection.getContentLength()+" bytes");
 
 							byte[] buffer = new byte[1024]; // InputStream
 
@@ -186,10 +186,10 @@ public class WebGet extends DefaultHttpClient {
 							bufferedInputStream.close(); // 關閉資料流
 							bufferedOutputStream.close();
 
-							System.out.println(outputFile + "下載完成");
+							Logger.println(outputFile + "下載完成");
 						}
 					} else
-						System.out.println(outputFile + "檔案已存在");
+						Logger.println(outputFile + "檔案已存在");
 				}
 
 			}
